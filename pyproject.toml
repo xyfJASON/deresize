@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "deresize"
+version = "0.0.1"
+description = "Restores images to their natural aspect ratio."
+authors = [
+  { name="xyfJASON", email="xyfjason@gmail.com" },
+]
+license = { text = "MIT" }
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "torch>=2.4.1",
+    "torchvision>=0.19.1",
+    "transformers>=4.47.1",
+    "tensorboard>=2.18.0",
+    "numpy",
+    "Pillow",
+    "tqdm",
+]
+
+[project.urls]
+Homepage = "https://github.com/xyfJASON/deresize"
+Issues = "https://github.com/xyfJASON/deresize/issues"
+
+[tool.setuptools]
+packages = ["deresize"]
