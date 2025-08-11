@@ -24,7 +24,7 @@ class ImageDataset(Dataset):
         image_path = self.image_paths[index]
         image = Image.open(image_path).convert('RGB')
         # crop image to a random aspect ratio
-        ar = np.exp(np.clip(np.random.randn(), -1.2, 1.2))
+        ar = np.exp(np.random.uniform(-1.2, 1.2))
         width, height = image.size
         if width / height > ar:
             new_width = int(height * ar)

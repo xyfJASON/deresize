@@ -10,6 +10,12 @@ def get_model_and_processor(model_name: str):
         processor = SiglipImageProcessor.from_pretrained("google/siglip-so400m-patch14-384")
         model = SiglipBasedDeresizer()
 
+    elif model_name == "clip":
+        from transformers import CLIPImageProcessor
+        from .models.clip import CLIPBasedDeresizer
+        processor = CLIPImageProcessor.from_pretrained("openai/clip-vit-large-patch14", size=224)
+        model = CLIPBasedDeresizer()
+
     else:
         raise ValueError(f"Model {model_name} is not supported.")
 

@@ -25,7 +25,7 @@ def get_parser():
     # data
     parser.add_argument("--dataroot", type=str, required=True)
     # model
-    parser.add_argument("--model_name", type=str, required=True, choices=["siglip"])
+    parser.add_argument("--model_name", type=str, required=True, choices=["siglip", "clip"])
     # training
     parser.add_argument("--num_steps", type=int, default=10000)
     parser.add_argument("--total_batch_size", type=int, default=256)
