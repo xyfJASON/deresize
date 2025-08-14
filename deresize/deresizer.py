@@ -12,6 +12,7 @@ class Deresizer:
     HEAD_WEIGHTS = {
         "siglip": "siglip-head.safetensors",
         "clip": "clip-head.safetensors",
+        "mae": "mae-head.safetensors",
     }
 
     def __init__(self, model_name: str, device: str | torch.device = "cuda", local_head_weights_file: str = None):

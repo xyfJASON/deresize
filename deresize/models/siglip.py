@@ -1,14 +1,14 @@
 import torch
 import torch.nn as nn
 from torch import Tensor
-from transformers import SiglipVisionConfig, SiglipVisionModel
+from transformers import SiglipVisionModel
 
 
 class DeresizerHead(nn.Module):
-    def __init__(self, config: SiglipVisionConfig):
+    def __init__(self, hidden_size: int):
         super().__init__()
         self.head = nn.Sequential(
-            nn.Linear(config.hidden_size, 1024),
+            nn.Linear(hidden_size, 1024),
             nn.LayerNorm(1024),
             nn.GELU(approximate="tanh"),
             nn.Linear(1024, 256),
@@ -28,7 +28,7 @@ class SiglipBasedDeresizer(nn.Module):
     def __init__(self):
         super().__init__()
         self.siglip = SiglipVisionModel.from_pretrained("google/siglip-so400m-patch14-384")
-        self.head = DeresizerHead(self.siglip.config)
+        self.head = DeresizerHead(self.siglip.config.hidden_size)
 
     def forward(self, *args, **kwargs) -> Tensor:
         with torch.no_grad():

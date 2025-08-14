@@ -16,6 +16,12 @@ def get_model_and_processor(model_name: str):
         processor = CLIPImageProcessor.from_pretrained("openai/clip-vit-large-patch14", size=224)
         model = CLIPBasedDeresizer()
 
+    elif model_name == "mae":
+        from transformers import ViTImageProcessor
+        from .models.mae import MAEBasedDeresizer
+        processor = ViTImageProcessor.from_pretrained("facebook/vit-mae-large")
+        model = MAEBasedDeresizer()
+
     else:
         raise ValueError(f"Model {model_name} is not supported.")
 

@@ -13,8 +13,9 @@ def find_all_images(directory):
 
 
 class ImageDataset(Dataset):
-    def __init__(self, root: str):
+    def __init__(self, root: str, ar: float = None):
         self.root = os.path.expanduser(root)
+        self.ar = ar
         self.image_paths = find_all_images(self.root)
 
     def __len__(self):
@@ -23,8 +24,8 @@ class ImageDataset(Dataset):
     def __getitem__(self, index: int):
         image_path = self.image_paths[index]
         image = Image.open(image_path).convert('RGB')
-        # crop image to a random aspect ratio
-        ar = np.exp(np.random.uniform(-1.2, 1.2))
+        # crop image to the given or a random aspect ratio
+        ar = self.ar or np.exp(np.random.uniform(-1.2, 1.2))
         width, height = image.size
         if width / height > ar:
             new_width = int(height * ar)

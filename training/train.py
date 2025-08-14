@@ -25,14 +25,14 @@ def get_parser():
     # data
     parser.add_argument("--dataroot", type=str, required=True)
     # model
-    parser.add_argument("--model_name", type=str, required=True, choices=["siglip", "clip"])
+    parser.add_argument("--model_name", type=str, required=True, choices=["siglip", "clip", "mae"])
     # training
-    parser.add_argument("--num_steps", type=int, default=10000)
+    parser.add_argument("--num_steps", type=int, default=100000)
     parser.add_argument("--total_batch_size", type=int, default=256)
     parser.add_argument("--learning_rate", type=float, default=0.001)
     parser.add_argument("--weight_decay", type=float, default=0.01)
     parser.add_argument("--warmup_steps", type=int, default=1000)
-    parser.add_argument("--checkpoint_freq", type=int, default=1000)
+    parser.add_argument("--checkpoint_freq", type=int, default=10000)
     parser.add_argument("--exp_dir", type=str, default=None)
     parser.add_argument("--seed", type=int, default=42)
     return parser

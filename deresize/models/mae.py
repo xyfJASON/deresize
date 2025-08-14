@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 from torch import Tensor
-from transformers import CLIPVisionModel
+from transformers import ViTMAEModel
 
 
 class DeresizerHead(nn.Module):
@@ -24,15 +24,15 @@ class DeresizerHead(nn.Module):
         return self.head(x)
 
 
-class CLIPBasedDeresizer(nn.Module):
+class MAEBasedDeresizer(nn.Module):
     def __init__(self):
         super().__init__()
-        self.clip = CLIPVisionModel.from_pretrained("openai/clip-vit-large-patch14")
-        self.head = DeresizerHead(self.clip.config.hidden_size)
+        self.mae = ViTMAEModel.from_pretrained("facebook/vit-mae-large", mask_ratio=0.)
+        self.head = DeresizerHead(self.mae.config.hidden_size)
 
     def forward(self, *args, **kwargs) -> Tensor:
         with torch.no_grad():
-            output = self.clip(*args, **kwargs)
-            output = output.pooler_output
+            output = self.mae(*args, **kwargs)
+            output = output.last_hidden_state[:, 0, :]
         output = self.head(output)
         return output
