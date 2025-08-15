@@ -48,6 +48,18 @@ which is used to resize the image back to its natural aspect ratio.
 
 
 
+## Model Zoo
+
+Models will be automatically downloaded from Hugging Face when you instantiate `Deresizer`.
+
+| Model Name |                                   Vision Foundation Model                                   |                             MLP Head                              |
+|:----------:|:-------------------------------------------------------------------------------------------:|:-----------------------------------------------------------------:|
+|   siglip   | [google/siglip-so400m-patch14-384](https://huggingface.co/google/siglip-so400m-patch14-384) | [siglip-head](https://huggingface.co/xyfJASON/deresize/tree/main) |
+|    clip    |    [openai/clip-vit-large-patch14](https://huggingface.co/openai/clip-vit-large-patch14)    |  [clip-head](https://huggingface.co/xyfJASON/deresize/tree/main)  |
+|    mae     |           [facebook/vit-mae-large](https://huggingface.co/facebook/vit-mae-large)           |  [mae-head](https://huggingface.co/xyfJASON/deresize/tree/main)   |
+
+
+
 ## Training
 
 To train the model on your own dataset, use the following command:
@@ -58,4 +70,4 @@ torchrun --nproc-per-node 4 train.py --dataroot DATAROOT --model_name MODEL_NAME
 ```
 
 - `DATAROOT`: Path to the image dataset.
-- `MODEL_NAME`: Name of the model. Options: `siglip`.
+- `MODEL_NAME`: Name of the model. Options: `siglip`, `clip`, `mae`.
