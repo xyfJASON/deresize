@@ -25,7 +25,7 @@ def get_parser():
     # data
     parser.add_argument("--dataroot", type=str, required=True)
     # model
-    parser.add_argument("--model_name", type=str, required=True, choices=["siglip", "clip", "mae"])
+    parser.add_argument("--model_name", type=str, required=True, choices=["siglip", "clip", "mae", "vit", "dinov2"])
     # training
     parser.add_argument("--num_steps", type=int, default=100000)
     parser.add_argument("--total_batch_size", type=int, default=256)
@@ -123,8 +123,7 @@ def main():
         pbar = tqdm.tqdm(dataloader, desc=f"Epoch {epoch}", disable=not is_main_process())
         for images, ars in pbar:
             # GET INPUTS
-            inputs = processor(images=images, return_tensors="pt")
-            inputs["pixel_values"] = inputs["pixel_values"].to(device)
+            inputs = processor(images=images, return_tensors="pt").to(device)
             ars = ars.to(device)
             # MODEL FORWARD
             outputs = model(**inputs).squeeze(1)

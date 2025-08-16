@@ -29,8 +29,7 @@ class Deresizer:
 
     @torch.no_grad()
     def __call__(self, image: Image.Image) -> Image.Image:
-        inputs = self.processor(images=image, return_tensors="pt")
-        inputs["pixel_values"] = inputs["pixel_values"].to(self.device)
+        inputs = self.processor(images=image, return_tensors="pt").to(self.device)
         ar = self.model(**inputs).squeeze().exp()
         w, h = image.size
         if ar * h <= w:

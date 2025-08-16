@@ -7,9 +7,9 @@ from .head import DeresizerHead
 
 
 class SiglipBasedDeresizer(nn.Module):
-    def __init__(self):
+    def __init__(self, pretrained_model_name_or_path: str):
         super().__init__()
-        self.siglip = SiglipVisionModel.from_pretrained("google/siglip-so400m-patch14-384")
+        self.siglip = SiglipVisionModel.from_pretrained(pretrained_model_name_or_path)
         self.head = DeresizerHead(self.siglip.config.hidden_size)
 
     def forward(self, *args, **kwargs) -> Tensor:

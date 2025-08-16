@@ -8,19 +8,31 @@ def get_model_and_processor(model_name: str):
         from transformers import SiglipImageProcessor
         from .models.siglip import SiglipBasedDeresizer
         processor = SiglipImageProcessor.from_pretrained("google/siglip-so400m-patch14-384")
-        model = SiglipBasedDeresizer()
+        model = SiglipBasedDeresizer("google/siglip-so400m-patch14-384")
 
     elif model_name == "clip":
         from transformers import CLIPImageProcessor
         from .models.clip import CLIPBasedDeresizer
         processor = CLIPImageProcessor.from_pretrained("openai/clip-vit-large-patch14", size=224)
-        model = CLIPBasedDeresizer()
+        model = CLIPBasedDeresizer("openai/clip-vit-large-patch14")
 
     elif model_name == "mae":
         from transformers import ViTImageProcessor
         from .models.mae import MAEBasedDeresizer
         processor = ViTImageProcessor.from_pretrained("facebook/vit-mae-large")
-        model = MAEBasedDeresizer()
+        model = MAEBasedDeresizer("facebook/vit-mae-large")
+
+    elif model_name == "vit":
+        from transformers import ViTImageProcessor
+        from .models.vit import ViTBasedDeresizer
+        processor = ViTImageProcessor.from_pretrained("google/vit-large-patch16-384")
+        model = ViTBasedDeresizer("google/vit-large-patch16-384")
+
+    elif model_name == "dinov2":
+        from transformers import AutoImageProcessor
+        from .models.dinov2 import Dinov2BasedDeresizer
+        processor = AutoImageProcessor.from_pretrained("facebook/dinov2-with-registers-large", use_fast=False)
+        model = Dinov2BasedDeresizer("facebook/dinov2-with-registers-large")
 
     else:
         raise ValueError(f"Model {model_name} is not supported.")
